@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recursion</title>
+  </head>
+  <body>
+    <div>
+      <h1>Fibonacci Sequence</h1>
+      <label>Please enter a Fibonacci length: </label>
+      <input type="number" class="fibon" value="5" />
+      <button class="fibon-button">Go!</button>
+      <div class="fibon-seq-ans"></div>
+      <pre class="fib1-seq-code"></pre>
+      <div class="fibon-rec-ans"></div>
+      <pre class="fib1-rec-code"></pre>
+    </div>
+
+    <script>
+      const input = document.querySelector(".fibon");
+      const button = document.querySelector(".fibon-button");
+      const fibSeqAns = document.querySelector(".fibon-seq-ans");
+      const fibSeqCode = document.querySelector(".fib1-seq-code");
+      const fibRecAns = document.querySelector(".fib-rec-ans");
+      const fibRecCode = document.querySelector(".fib1-rec-code");
+      const test = document.querySelector(".test");
+      button.addEventListener("click", () => {
+        fibs(input.value);
+        fibsRec(input.value);
+      });
+
+      function fibs(n) {
+        let arr = [];
+        let a = 0;
+        let b = 1;
+        for (let i = 0; i < n; i += 1) {
+          arr.push(a);
+          let c = a + b;
+          a = b;
+          b = c;
+        }
+
+        // render element to page
+        fibSeqCode.textContent = `
+        function fibs(n) {
+          let arr = [];
+          let a = 0;
+          let b = 1;
+          for (let i = 0; i < n; i += 1) {
+            arr.push(a);
+            let c = a + b;
+            a = b;
+            b = c;
+          }
+        }
+      `;
+        answer = "";
+        for (let i = 0; i < arr.length; i += 1) {
+          if (i === 0) {
+            answer += `[${arr[i]}, `;
+          } else if (i === arr.length - 1) {
+            answer += `${arr[i]}]`;
+          } else {
+            answer += `${arr[i]}, `;
+          }
+          if (arr[i] === 0 && arr.length === 1) {
+            answer = `[${arr[i]}]`;
+          }
+        }
+
+        fibSeqAns.textContent = `Iteration: ${answer}`;
+      }
+
+      function fibsRec(n) {
+        // Fibonacci function in one line
+        const fib = (n) => (n < 2 ? n : fib(n - 1) + fib(n - 2));
+
+        let arr = [];
+        for (let i = 0; i < n; i += 1) {
+          arr.push(fib(i));
+        }
+
+        // render element to page
+        fibRecCode.textContent = `
+        function fibsRec(n) {
+          if (n < 2) {
+            return n;
+          } else {
+            return fib(n - 1) + fib(n - 2);
+          }
+        }
+      `;
+        answer = "";
+        for (let i = 0; i < arr.length; i += 1) {
+          if (i === 0) {
+            answer += `[${arr[i]}, `;
+          } else if (i === arr.length - 1) {
+            answer += `${arr[i]}]`;
+          } else {
+            answer += `${arr[i]}, `;
+          }
+          if (arr[i] === 0 && arr.length === 1) {
+            answer = `[${arr[i]}]`;
+          }
+        }
+
+        fibRecAns.textContent = `Recursion: ${answer}`;
+      }
+    </script>
+  </body>
+</html>
